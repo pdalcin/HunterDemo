@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Hunter.AI
 {
@@ -13,8 +14,8 @@ namespace Hunter.AI
         /// <summary>
         /// Actions
         /// </summary>
-        protected List<BaseAIOrder> m_ActionsInterests;
-        protected List<BaseAIOrder> m_ActionsNeeds;
+        protected List<BaseAIOrder> m_ActionsInterests = new List<BaseAIOrder>();
+        protected List<BaseAIOrder> m_ActionsNeeds = new List<BaseAIOrder>();
         protected BaseAIOrder m_ActionCurrent;
 
         protected Transform m_CurrentTarget;
@@ -32,13 +33,20 @@ namespace Hunter.AI
         /// <summary>
         /// AI Status
         /// </summary>
+        [SerializeField]
         protected float m_Hunger = 1f; // 1 = not hungry , 0 = starving
+        [SerializeField]
         protected float m_Health = 1f; // 1 = full health, 0 = dead
+
+        /// <summary>
+        /// Agent
+        /// </summary>
+        protected NavMeshAgent m_Agent;
 
         public bool IsInDanger {
             get { return m_IsInDanger; }
         }
-        
+
         protected virtual void Awake()
         {
             m_ActionDelegates.Add(BaseAIOrder.BaseActions.GetFood, GetFood);
@@ -46,17 +54,51 @@ namespace Hunter.AI
             m_ActionDelegates.Add(BaseAIOrder.BaseActions.Mate, Mate);
             m_ActionDelegates.Add(BaseAIOrder.BaseActions.Wander, Wander);
             m_FoodLayer = LayerMask.GetMask(new string[] { "Food" });
+            if (!m_Agent)
+                m_Agent = GetComponent<NavMeshAgent>();
+            AIManager.Instance.Add(this);
         }
 
         #region Actions
+        public virtual bool ExecuteCurrentAction()
+        {
+            if (m_ActionCurrent == null)
+                return false;
+            m_ActionDelegates[m_ActionCurrent.Action]();
+            return true;
+        }
+
+        public virtual bool ExecuteNextNeed()
+        {
+            if (m_ActionsNeeds.Count > 0)
+            {
+                m_ActionCurrent = m_ActionsNeeds[0];
+                m_ActionDelegates[m_ActionCurrent.Action]();
+                return true;
+            }
+            return false;
+        }
+
+        public virtual bool ExecuteNextInterest()
+        {
+            if (m_ActionsInterests.Count > 0)
+            {
+                m_ActionCurrent = m_ActionsInterests[0];
+                m_ActionDelegates[m_ActionCurrent.Action]();
+                return true;
+            }
+            return false;
+        }
+
         protected Collider[] m_NonAllocResults = new Collider[10];
 
         // Exectute GetFood Action
         protected LayerMask m_FoodLayer;
 
-        public virtual void GetFood()
+        protected virtual void GetFood()
         {
-            if (1 - m_Hunger <= m_ActionCurrent.Priority)
+            Debug.Log("Get food");
+            if (1.1f - m_Hunger < m_ActionCurrent.Priority)
             {
                 m_ActionCurrent = null;
                 return;
@@ -64,13 +106,14 @@ namespace Hunter.AI
             if (m_CurrentTarget == null)
             {
                 int amount = Physics.OverlapSphereNonAlloc(transform.position, m_Personality.NeedDetectionRange, m_NonAllocResults, m_FoodLayer);
-                if(amount <= 0)
+                if (amount <= 0)
                 {
+                    WanderRandomDirection(m_Personality.NeedDetectionRange);
                     return;
                 }
                 int index = 0;
                 float min = Mathf.Infinity;
-                for(int i = 0; i < amount; i++)
+                for (int i = 0; i < amount; i++)
                 {
                     float mag = (m_NonAllocResults[i].transform.position - transform.position).sqrMagnitude;
                     if (mag < min)
@@ -79,27 +122,27 @@ namespace Hunter.AI
                         index = i;
                     }
                 }
-                m_CurrentTarget = m_NonAllocResults[index].transform;
+                SetNavmeshTarget(m_NonAllocResults[index].transform);
             }
             // ends current action
         }
 
         // Exectute Sleep Action
-        public virtual void Sleep()
+        protected virtual void Sleep()
         {
             // ends current action
             m_ActionCurrent = null;
         }
 
         // Exectute Mate Action
-        public virtual void Mate()
+        protected virtual void Mate()
         {
             // ends current action
             m_ActionCurrent = null;
         }
 
         // Exectute Wander Action
-        public virtual void Wander()
+        protected virtual void Wander()
         {
             // ends current action
             m_ActionCurrent = null;
@@ -110,12 +153,12 @@ namespace Hunter.AI
 
         public virtual void RecieveOrder(BaseAIOrder order, bool Interrupt)
         {
-            if(Interrupt && m_ActionCurrent != null)
+            if (Interrupt && m_ActionCurrent != null)
             {
                 m_ActionsNeeds.Add(m_ActionCurrent);
                 return;
             }
-            if(m_ActionCurrent == null)
+            if (m_ActionCurrent == null)
             {
                 m_ActionCurrent = order;
                 return;
@@ -128,7 +171,7 @@ namespace Hunter.AI
         public virtual bool EvaluateDanger()
         {
             m_IsInDanger = false;
-            return false;
+            return m_IsInDanger;
         }
 
         public virtual void ActOnDanger()
@@ -137,11 +180,11 @@ namespace Hunter.AI
         }
 
         public virtual bool EvaluateNeeds()
-        {   
+        {
             // Evaluate the need to search for food
-            if(m_Hunger <= m_Personality.HungryThreshold)
+            if (m_Hunger <= m_Personality.HungryThreshold)
             {
-                if ((BaseAIOrder.BaseActions)m_ActionCurrent.Action != BaseAIOrder.BaseActions.GetFood)
+                if (m_ActionCurrent == null || (BaseAIOrder.BaseActions)m_ActionCurrent.Action != BaseAIOrder.BaseActions.GetFood)
                 {
                     var exists = m_ActionsNeeds.FindIndex(x => (BaseAIOrder.BaseActions)x.Action == BaseAIOrder.BaseActions.GetFood);
                     if (exists < 0)
@@ -152,14 +195,14 @@ namespace Hunter.AI
             {
                 m_ActionsNeeds.RemoveAll(x => (BaseAIOrder.BaseActions)x.Action == BaseAIOrder.BaseActions.GetFood);
             }
-            
+
             // Check it there is any need at all
             if (m_ActionsNeeds.Count == 0)
                 return false;
 
             // Order needs by priority
             m_ActionsNeeds = m_ActionsNeeds.OrderBy(x => x.Priority).ToList();
-            
+
             return true;
         }
 
@@ -173,6 +216,93 @@ namespace Hunter.AI
             return true;
         }
 
+        protected virtual void Update()
+        {
+            HungerDecay();
+            if(!m_CurrentTarget || IsDoingSomething())
+            {
+                m_Agent.enabled = false;
+            }
+            else if (m_CurrentTarget)
+            {
+                m_Agent.enabled = true;
+                SetNavmeshTarget(m_CurrentTarget);
+            }
+        }
+
+        #region Status
+        protected virtual bool IsDoingSomething()
+        {
+            return false;
+        }
+
+        protected virtual void HungerDecay()
+        {
+            var amount = Mathf.Min(m_Personality.HungerDecayRatio * Time.deltaTime, m_Hunger * Time.deltaTime);
+            m_Hunger -= amount;
+        }
+
+        public virtual void Feed(float value)
+        {
+            m_Hunger += value;
+        }
+
+        #endregion
+
+        #region Util
+        protected virtual bool WanderRandomDirection(float range)
+        {
+            Debug.Log("Wander in Random direction");
+            for (int i = 0; i < 30; i++)
+            {
+                Vector3 randomPoint = transform.position + Random.insideUnitSphere * range;
+                NavMeshHit hit;
+                if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+                {
+                    GameObject newTarget = new GameObject();
+                    newTarget.name = "WayPoint";
+                    newTarget.transform.position = hit.position;
+                    WayPoint point = newTarget.AddComponent<WayPoint>();
+                    point.Set(transform, 0.1f);
+                    SetAgentTarget(newTarget.transform, newTarget.transform.position);
+                    return true;
+                }
+            }
+            return false;
+            
+        }
+
+        protected virtual bool SetNavmeshTarget(Transform target)
+        {
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(target.position, out hit, 1.0f, NavMesh.AllAreas))
+            {
+                SetAgentTarget(target, hit.position);
+                return true;
+            }
+            return false;
+        }
+
+        protected virtual void SetAgentTarget(Transform target, Vector3 position)
+        {
+            m_CurrentTarget = target;
+            if (m_CurrentTarget)
+            {
+                m_Agent.enabled = true;
+                m_Agent.SetDestination(position);
+            }
+        }
+        #endregion
+
+        #region Editor
+
+        void OnDrawGizmosSelected()
+        {
+            // Display the explosion radius when selected
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireSphere(transform.position, m_Personality.NeedDetectionRange);
+        }
+        #endregion
 
     }
 }

@@ -18,7 +18,10 @@ namespace Hunter.AI
         // Update is called once per frame
         void Update()
         {
-            if (Vector3.Distance(m_Target.position, transform.position) < m_Distance)
+            var target = m_Target.position;
+            target.y = transform.position.y;
+
+            if (Vector3.Distance(target, transform.position) < m_Distance)
             {
                 Destroy(gameObject);
             }

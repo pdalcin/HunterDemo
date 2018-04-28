@@ -11,6 +11,9 @@ namespace Hunter.AI
     {
         [Range(0,1)]
         public float HungryThreshold = 0.3f;
+        public float HungerDecayRatio = 0.01f;
         public float NeedDetectionRange = 5f;
+
+        
     }
 }
