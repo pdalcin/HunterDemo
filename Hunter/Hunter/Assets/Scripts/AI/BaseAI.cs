@@ -38,6 +38,11 @@ namespace Hunter.AI
         [SerializeField]
         protected float m_Health = 1f; // 1 = full health, 0 = dead
 
+        public delegate void OnDeathDelegate();
+        public event OnDeathDelegate OnDeathEvent;
+        public delegate void OnInitializeDelegate();
+        public event OnInitializeDelegate OnInitializeEvent;
+
         /// <summary>
         /// Agent
         /// </summary>
@@ -56,7 +61,22 @@ namespace Hunter.AI
             m_FoodLayer = LayerMask.GetMask(new string[] { "Food" });
             if (!m_Agent)
                 m_Agent = GetComponent<NavMeshAgent>();
+            m_Personality.RandomizePersonality();
             AIManager.Instance.Add(this);
+        }
+
+        protected virtual void Start()
+        {
+            StartCoroutine(DelayedInitialization());
+        }
+
+        protected virtual IEnumerator DelayedInitialization()
+        {
+            yield return null;
+            if (OnInitializeEvent != null)
+            {
+                OnInitializeEvent();
+            }
         }
 
         #region Actions
@@ -97,7 +117,6 @@ namespace Hunter.AI
 
         protected virtual void GetFood()
         {
-            Debug.Log("Get food");
             if (1.1f - m_Hunger < m_ActionCurrent.Priority)
             {
                 m_ActionCurrent = null;
@@ -105,10 +124,10 @@ namespace Hunter.AI
             }
             if (m_CurrentTarget == null)
             {
-                int amount = Physics.OverlapSphereNonAlloc(transform.position, m_Personality.NeedDetectionRange, m_NonAllocResults, m_FoodLayer);
+                int amount = Physics.OverlapSphereNonAlloc(transform.position, m_Personality.NeedDetection, m_NonAllocResults, m_FoodLayer);
                 if (amount <= 0)
                 {
-                    WanderRandomDirection(m_Personality.NeedDetectionRange);
+                    WanderRandomDirection(m_Personality.NeedDetection);
                     return;
                 }
                 int index = 0;
@@ -219,6 +238,9 @@ namespace Hunter.AI
         protected virtual void Update()
         {
             HungerDecay();
+            if (m_Hunger <= 0f)
+                HealthDecay();
+            CheckHealth();
             if(!m_CurrentTarget || IsDoingSomething())
             {
                 m_Agent.enabled = false;
@@ -238,7 +260,7 @@ namespace Hunter.AI
 
         protected virtual void HungerDecay()
         {
-            var amount = Mathf.Min(m_Personality.HungerDecayRatio * Time.deltaTime, m_Hunger * Time.deltaTime);
+            var amount = Mathf.Min(m_Personality.HungerDecayRatio * Time.deltaTime, m_Hunger);
             m_Hunger -= amount;
         }
 
@@ -247,12 +269,31 @@ namespace Hunter.AI
             m_Hunger += value;
         }
 
+        protected virtual void HealthDecay()
+        {
+            var amount = Mathf.Min(m_Personality.HealthDecayRatio * Time.deltaTime, m_Health);
+            m_Health -= amount;
+        }
+
+        protected virtual void CheckHealth()
+        {
+            if(m_Health <= 0)
+            {
+                OnDeath();
+            }
+        }
+
+        protected virtual void OnDeath()
+        {
+            if(OnDeathEvent != null)
+                OnDeathEvent();
+        }
+
         #endregion
 
         #region Util
         protected virtual bool WanderRandomDirection(float range)
         {
-            Debug.Log("Wander in Random direction");
             for (int i = 0; i < 30; i++)
             {
                 Vector3 randomPoint = transform.position + Random.insideUnitSphere * range;
@@ -275,7 +316,7 @@ namespace Hunter.AI
         protected virtual bool SetNavmeshTarget(Transform target)
         {
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(target.position, out hit, 1.0f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(target.position, out hit, .5f, NavMesh.AllAreas))
             {
                 SetAgentTarget(target, hit.position);
                 return true;
@@ -300,7 +341,7 @@ namespace Hunter.AI
         {
             // Display the explosion radius when selected
             Gizmos.color = Color.magenta;
-            Gizmos.DrawWireSphere(transform.position, m_Personality.NeedDetectionRange);
+            Gizmos.DrawWireSphere(transform.position, m_Personality.NeedDetection);
         }
         #endregion
 

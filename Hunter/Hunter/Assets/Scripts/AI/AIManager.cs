@@ -17,6 +17,8 @@ namespace Hunter.AI
                 return m_Instance;
             }
         }
+        [SerializeField]
+        private GameObject m_RabbitChildPrefab;
 
         private int m_ThoughtsPerUpdate = 10;
         private int m_CurrentThought = -1;
@@ -65,6 +67,13 @@ namespace Hunter.AI
         {
             if (m_SceneAIs.Contains(AI))
                 m_SceneAIs.Remove(AI);
+        }
+        #endregion
+
+        #region AISpawn
+        public void SpawnChild(RabbitAI mother, RabbitAI father)
+        {
+            Debug.Log("Spawn child!");
         }
         #endregion
     }

@@ -8,11 +8,20 @@ namespace Hunter.AI
     {
         private Transform m_Target;
         private float m_Distance;
+        private BaseAI m_TargetAI;
 
         public void Set(Transform target, float Distance)
         {
             m_Target = target;
             m_Distance = Distance;
+            m_TargetAI = target.GetComponent<BaseAI>();
+            if (m_TargetAI)
+                m_TargetAI.OnDeathEvent += OnTargetDeath;
+        }
+
+        public void OnTargetDeath()
+        {
+            Destroy(gameObject);
         }
 
         // Update is called once per frame
@@ -25,6 +34,12 @@ namespace Hunter.AI
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void OnDestroy()
+        {
+            if (m_TargetAI)
+                m_TargetAI.OnDeathEvent -= OnTargetDeath;
         }
     }
 }
