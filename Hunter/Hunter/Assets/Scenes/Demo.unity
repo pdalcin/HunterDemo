@@ -253,7 +253,6 @@ GameObject:
   - component: {fileID: 58988685}
   - component: {fileID: 58988688}
   - component: {fileID: 58988687}
-  - component: {fileID: 58988686}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -274,13 +273,6 @@ Transform:
   m_Father: {fileID: 1789198991}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &58988686
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 58988684}
-  m_Enabled: 1
 --- !u!124 &58988687
 Behaviour:
   m_ObjectHideFlags: 0
@@ -366,6 +358,10 @@ Prefab:
     - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
       propertyPath: m_Name
       value: RabbitAI (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
@@ -529,6 +525,10 @@ Prefab:
     - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
       propertyPath: m_Name
       value: RabbitAI (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
@@ -797,6 +797,10 @@ Prefab:
     - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
       propertyPath: m_Name
       value: RabbitAI (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
@@ -1360,6 +1364,10 @@ Prefab:
       propertyPath: m_Name
       value: RabbitAI (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
   m_IsPrefabParent: 0
@@ -1405,6 +1413,10 @@ Prefab:
     - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
       propertyPath: m_Name
       value: RabbitAI (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
@@ -1863,6 +1875,80 @@ Transform:
   m_PrefabParentObject: {fileID: 4629595453958822, guid: 7514b26b8c678431d8f9a9491a5abdcc,
     type: 2}
   m_PrefabInternal: {fileID: 358701791}
+--- !u!21 &378351807
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: TreLeafs
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _EMISSION
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.17588839
+    - _GlossyReflections: 1
+    - _Metallic: 0.18941845
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    m_Colors:
+    - _Color: {r: 0.10297943, g: 0.4868735, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1001 &386390664
 Prefab:
   m_ObjectHideFlags: 0
@@ -1988,7 +2074,7 @@ Prefab:
     - target: {fileID: 2369050, guid: 61d4aa3220d3d874b9d9f4d8f8af0a60, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2093674531}
+      objectReference: {fileID: 1854049844}
     - target: {fileID: 114759708113972108, guid: 61d4aa3220d3d874b9d9f4d8f8af0a60,
         type: 2}
       propertyPath: m_RandomizeColor
@@ -2063,6 +2149,10 @@ Prefab:
       propertyPath: m_Name
       value: RabbitAI (24)
       objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
   m_IsPrefabParent: 0
@@ -2108,6 +2198,10 @@ Prefab:
     - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
       propertyPath: m_Name
       value: RabbitAI (27)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
@@ -2620,6 +2714,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dbc2b9bbbdcbae4cb23e0e6b8cccdfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_RabbitChildPrefab: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5,
+    type: 2}
 --- !u!4 &547557534
 Transform:
   m_ObjectHideFlags: 0
@@ -2902,6 +2998,80 @@ Transform:
   m_Father: {fileID: 547557534}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!21 &651683578
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: TreLeafs
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _EMISSION
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.16866682
+    - _GlossyReflections: 1
+    - _Metallic: 0.107562944
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    m_Colors:
+    - _Color: {r: 0.046820633, g: 0.39899147, b: 0.03576299, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1001 &666955358
 Prefab:
   m_ObjectHideFlags: 0
@@ -2944,6 +3114,10 @@ Prefab:
     - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
       propertyPath: m_Name
       value: RabbitAI (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
@@ -3259,6 +3433,10 @@ Prefab:
     - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
       propertyPath: m_Name
       value: RabbitAI (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
@@ -3636,6 +3814,10 @@ Prefab:
       propertyPath: m_Name
       value: RabbitAI (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
   m_IsPrefabParent: 0
@@ -3953,6 +4135,10 @@ Prefab:
     - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
       propertyPath: m_Name
       value: RabbitAI (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
@@ -4613,6 +4799,10 @@ Prefab:
       propertyPath: m_Name
       value: RabbitAI (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
   m_IsPrefabParent: 0
@@ -4881,6 +5071,10 @@ Prefab:
       propertyPath: m_Name
       value: RabbitAI (29)
       objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
   m_IsPrefabParent: 0
@@ -4926,6 +5120,10 @@ Prefab:
     - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
       propertyPath: m_Name
       value: RabbitAI (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
@@ -4973,6 +5171,10 @@ Prefab:
       propertyPath: m_Name
       value: RabbitAI (25)
       objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
   m_IsPrefabParent: 0
@@ -5018,6 +5220,10 @@ Prefab:
     - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
       propertyPath: m_Name
       value: RabbitAI (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
@@ -5203,6 +5409,10 @@ Prefab:
       propertyPath: m_Name
       value: RabbitAI (28)
       objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
   m_IsPrefabParent: 0
@@ -5216,7 +5426,6 @@ GameObject:
   - component: {fileID: 1175731753}
   - component: {fileID: 1175731756}
   - component: {fileID: 1175731755}
-  - component: {fileID: 1175731754}
   m_Layer: 0
   m_Name: Camera (2)
   m_TagString: Untagged
@@ -5237,13 +5446,6 @@ Transform:
   m_Father: {fileID: 1789198991}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1175731754
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1175731752}
-  m_Enabled: 1
 --- !u!124 &1175731755
 Behaviour:
   m_ObjectHideFlags: 0
@@ -5427,6 +5629,10 @@ Prefab:
       propertyPath: m_Name
       value: RabbitAI (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
   m_IsPrefabParent: 0
@@ -5546,6 +5752,10 @@ Prefab:
     - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
       propertyPath: m_Name
       value: RabbitAI (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
@@ -6229,6 +6439,10 @@ Prefab:
       propertyPath: m_Name
       value: RabbitAI (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
   m_IsPrefabParent: 0
@@ -6274,7 +6488,7 @@ Prefab:
     - target: {fileID: 2369050, guid: 61d4aa3220d3d874b9d9f4d8f8af0a60, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1642316457}
+      objectReference: {fileID: 651683578}
     - target: {fileID: 198678, guid: 61d4aa3220d3d874b9d9f4d8f8af0a60, type: 2}
       propertyPath: m_Name
       value: PineTree (1)
@@ -6640,6 +6854,10 @@ Prefab:
       propertyPath: m_Name
       value: RabbitAI (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
   m_IsPrefabParent: 0
@@ -6686,83 +6904,13 @@ Prefab:
       propertyPath: m_Name
       value: RabbitAI (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
   m_IsPrefabParent: 0
---- !u!21 &1642316457
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: TreLeafs
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION
-  m_LightmapFlags: 1
-  m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailNormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ParallaxMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _BumpScale: 1
-    - _Cutoff: 0.5
-    - _DetailNormalMapScale: 1
-    - _DstBlend: 0
-    - _GlossMapScale: 1
-    - _Glossiness: 0.11923942
-    - _GlossyReflections: 1
-    - _Metallic: 0.20507821
-    - _Mode: 0
-    - _OcclusionStrength: 1
-    - _Parallax: 0.02
-    - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
-    - _SrcBlend: 1
-    - _UVSec: 0
-    - _ZWrite: 1
-    m_Colors:
-    - _Color: {r: 0.06639753, g: 0.5663099, b: 0.002233386, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1001 &1660165785
 Prefab:
   m_ObjectHideFlags: 0
@@ -6805,6 +6953,10 @@ Prefab:
     - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
       propertyPath: m_Name
       value: RabbitAI (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
@@ -7055,6 +7207,10 @@ Prefab:
     - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
       propertyPath: m_Name
       value: RabbitAI (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
@@ -7422,7 +7578,7 @@ Prefab:
     - target: {fileID: 2369050, guid: 61d4aa3220d3d874b9d9f4d8f8af0a60, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1820032073}
+      objectReference: {fileID: 378351807}
     - target: {fileID: 198678, guid: 61d4aa3220d3d874b9d9f4d8f8af0a60, type: 2}
       propertyPath: m_Name
       value: PineTree (3)
@@ -7849,6 +8005,10 @@ Prefab:
       propertyPath: m_Name
       value: RabbitAI (26)
       objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
   m_IsPrefabParent: 0
@@ -7955,10 +8115,14 @@ Prefab:
       propertyPath: m_Name
       value: RabbitAI (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
   m_IsPrefabParent: 0
---- !u!21 &1820032073
+--- !u!21 &1854049844
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -8018,9 +8182,9 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.14894342
+    - _Glossiness: 0.1738351
     - _GlossyReflections: 1
-    - _Metallic: 0.22840849
+    - _Metallic: 0.14212862
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -8030,7 +8194,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.13194324, g: 0.41664356, b: 0, a: 1}
+    - _Color: {r: 0.04507144, g: 0.3838408, b: 0.05868117, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1001 &1861638529
 Prefab:
@@ -8343,6 +8507,10 @@ Prefab:
       propertyPath: m_Name
       value: RabbitAI (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
   m_IsPrefabParent: 0
@@ -8531,7 +8699,6 @@ GameObject:
   - component: {fileID: 1979811296}
   - component: {fileID: 1979811299}
   - component: {fileID: 1979811298}
-  - component: {fileID: 1979811297}
   m_Layer: 0
   m_Name: Camera (1)
   m_TagString: Untagged
@@ -8552,13 +8719,6 @@ Transform:
   m_Father: {fileID: 1789198991}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1979811297
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1979811295}
-  m_Enabled: 1
 --- !u!124 &1979811298
 Behaviour:
   m_ObjectHideFlags: 0
@@ -8715,6 +8875,10 @@ Prefab:
       propertyPath: m_Name
       value: RabbitAI (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
   m_IsPrefabParent: 0
@@ -8761,80 +8925,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4508766475254734, guid: ec4183035a2c9294887e679ff05ecdb5,
     type: 2}
   m_PrefabInternal: {fileID: 1131358937}
---- !u!21 &2093674531
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: TreLeafs
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION
-  m_LightmapFlags: 1
-  m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailNormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ParallaxMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _BumpScale: 1
-    - _Cutoff: 0.5
-    - _DetailNormalMapScale: 1
-    - _DstBlend: 0
-    - _GlossMapScale: 1
-    - _Glossiness: 0.1842671
-    - _GlossyReflections: 1
-    - _Metallic: 0.2547421
-    - _Mode: 0
-    - _OcclusionStrength: 1
-    - _Parallax: 0.02
-    - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
-    - _SrcBlend: 1
-    - _UVSec: 0
-    - _ZWrite: 1
-    m_Colors:
-    - _Color: {r: 0.056850307, g: 0.48462248, b: 0.027503833, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1001 &2096120935
 Prefab:
   m_ObjectHideFlags: 0
@@ -9014,6 +9104,10 @@ Prefab:
     - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
       propertyPath: m_Name
       value: RabbitAI (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558775129432710, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec4183035a2c9294887e679ff05ecdb5, type: 2}

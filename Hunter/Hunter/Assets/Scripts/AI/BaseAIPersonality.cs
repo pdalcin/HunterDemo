@@ -7,7 +7,6 @@ namespace Hunter.AI
     [Serializable]
     public class BaseAIPersonality
     {
-        [Header("Hunger")]
         [Range(0,1)]
         public float HungryThreshold = 0.3f;
         public Vector2 HungryThresholdRange = new Vector2(0.3f, 0.45f);
@@ -15,13 +14,18 @@ namespace Hunter.AI
         public Vector2 HungryDecayRange = new Vector2(0.1f, 0.25f);
         public float NeedDetection = 5f;
         public Vector2 NeedDetectionRange = new Vector2(6f, 8f);
-        [Header("Health")]
+        
         public bool DecayHealthWhenStarving = true;
         public float HealthDecayRatio = 0.1f;
         public Vector2 HealthDecayRange = new Vector2(6f, 8f);
 
+        private BaseAIPersonality parent1 = null;
+        private BaseAIPersonality parent2 = null;
+
+
         public void RandomizePersonality()
         {
+            if (parent1 != null || parent2 != null) return;
             HungryThreshold = UnityEngine.Random.Range(HungryThresholdRange.x, HungryThresholdRange.y);
             HungerDecayRatio = UnityEngine.Random.Range(HungryDecayRange.x, HungryDecayRange.y);
             NeedDetection = UnityEngine.Random.Range(NeedDetectionRange.x, NeedDetectionRange.y);

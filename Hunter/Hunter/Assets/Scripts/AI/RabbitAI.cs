@@ -9,7 +9,7 @@ namespace Hunter.AI
     {
         public enum RabbitActions
         {
-            Mate = BaseAIOrder.BaseActions.Highest+1
+            Mate = BaseAIOrder.BaseActions.Highest + 1
         }
 
         public enum RabbitMatingState
@@ -26,11 +26,22 @@ namespace Hunter.AI
 
         private RabbitAI m_DesiredMate;
         private float m_TimeLastMating = 0f;
+        [SerializeField]
         private RabbitMatingState m_MatingState;
 
         public bool IsMale
         {
             get { return m_MatingState == RabbitMatingState.MaleLooking || m_MatingState == RabbitMatingState.MaleSatisfied; }
+        }
+
+        public bool IsSatisfied
+        {
+            get { return m_MatingState == RabbitMatingState.FemaleSatisfied || m_MatingState == RabbitMatingState.MaleSatisfied; }
+        }
+
+        public bool IsAvailable
+        {
+            get { return m_DesiredMate == null; }
         }
 
         public RabbitMatingState MatingState
@@ -48,7 +59,7 @@ namespace Hunter.AI
             base.Awake();
             if (!m_Animator)
                 m_Animator.GetComponentInChildren<Animator>();
-            m_MatingState = (RabbitMatingState) Random.Range(0, 5);
+            m_MatingState = (RabbitMatingState)Random.Range(0, 5);
         }
 
         protected override bool IsDoingSomething()
@@ -59,11 +70,15 @@ namespace Hunter.AI
 
         public bool Seduce(RabbitAI mate)
         {
-            if ((!m_DesiredMate || m_DesiredMate.Apperance <= mate.Apperance)) {
+            if (!m_DesiredMate || (m_DesiredMate.Apperance <= mate.Apperance && ! m_DesiredMate.IsInterestedIn(this))) {
                 m_DesiredMate = mate;
-                return true;
             }
-            return false;
+            return m_DesiredMate == mate; 
+        }
+
+        public bool IsInterestedIn(RabbitAI mate)
+        {
+            return mate == m_DesiredMate;
         }
 
         public void MakeBaby(RabbitAI with)
@@ -81,37 +96,68 @@ namespace Hunter.AI
 
         protected override void Mate()
         {
-            if (m_ActionsNeeds.Count > 0)
+            if (EvaluateNeeds())
             {
-                m_ActionsInterests.Add(m_ActionCurrent);
+                var exists = m_ActionsInterests.FindIndex(x => (BaseAIOrder.BaseActions)x.Action == BaseAIOrder.BaseActions.Mate);
+                if (exists < 0)
+                {
+                    if (IsMale)
+                        m_MatingState = RabbitMatingState.MaleLooking;
+                    else
+                        m_MatingState = RabbitMatingState.FemaleLooking;
+                    m_ActionsInterests.Add(m_ActionCurrent);
+                }
                 m_DesiredMate = null;
+                m_CurrentTarget = null;
                 m_ActionCurrent = null;
                 return;
             }
-            if (MatingState == RabbitMatingState.FemaleSatisfied || MatingState == RabbitMatingState.MaleSatisfied)
+            if (IsSatisfied)
             {
                 m_DesiredMate = null;
+                m_CurrentTarget = null;
                 m_ActionCurrent = null;
                 return;
             }
             if (m_DesiredMate)
             {
-                if (Vector3.Distance(transform.position, m_DesiredMate.transform.position) < 0.2f)
-                {
-                    if (m_DesiredMate.Seduce(this)) {
-                        m_DesiredMate.MakeBaby(this);
-                        MakeBaby(m_DesiredMate);
-                        m_DesiredMate = null;
-                        m_ActionCurrent = null;
-                        return;
+                if (!m_DesiredMate.IsSatisfied) { 
+                    var dist = Vector3.Distance(transform.position, m_DesiredMate.transform.position);
+                    if (dist < m_Personality.NeedDetection / 2f)
+                    {
+                        if (m_DesiredMate.Seduce(this))
+                        { 
+                            if (dist < .5f)
+                            {
+                                m_DesiredMate.MakeBaby(this);
+                                MakeBaby(m_DesiredMate);
+                                m_DesiredMate = null;
+                                m_CurrentTarget = null;
+                                m_ActionCurrent = null;
+                                return;
+                            }
+                        } else
+                        {
+                            m_DesiredMate = null;
+                            m_CurrentTarget = null;
+                            return;
+                        }
                     }
+                    else
+                    {
+                        if(m_CurrentTarget == null)
+                            SetNavmeshTarget(m_DesiredMate.transform);
+                    }
+
                 } else
                 {
-                    SetNavmeshTarget(m_DesiredMate.transform);
+                    m_DesiredMate = null;
+                    m_CurrentTarget = null;
                 }
-            } else
+            }
+            else if(m_CurrentTarget == null)
             {
-                int amount = Physics.OverlapSphereNonAlloc(transform.position, m_Personality.NeedDetection, m_NonAllocResults, gameObject.layer);
+                int amount = Physics.OverlapSphereNonAlloc(transform.position, m_Personality.NeedDetection, m_NonAllocResults, 1 << gameObject.layer);
                 var DesiredState = m_MatingState == RabbitMatingState.MaleLooking ? RabbitMatingState.FemaleLooking : RabbitMatingState.MaleLooking;
 
                 int index = -1;
@@ -119,12 +165,13 @@ namespace Hunter.AI
                 RabbitAI mateCandidate = null;
                 for (int i = 0; i < amount; i++)
                 {
+                    
                     mateCandidate = m_NonAllocResults[i].GetComponent<RabbitAI>();
                     if (!mateCandidate || mateCandidate.MatingState != DesiredState) continue;
-                    
-                    if (mateCandidate.Apperance >= max)
+                    var matevalue = mateCandidate.Apperance + (mateCandidate.IsInterestedIn(this) ? .4f : 0f) + (mateCandidate.IsAvailable ? .2f : 0f);
+                    if (matevalue >= max)
                     {
-                        max = mateCandidate.Apperance;
+                        max = matevalue;
                         index = i;
                     }
                 }
@@ -137,18 +184,24 @@ namespace Hunter.AI
                 SetNavmeshTarget(m_NonAllocResults[index].transform);
 
             }
-            base.Mate();
         }
 
         public override bool EvaluateInterests()
         {
             if(m_TimeLastMating + 2f < Time.time)
             {
+                
                 if (m_ActionCurrent == null || (BaseAIOrder.BaseActions)m_ActionCurrent.Action != BaseAIOrder.BaseActions.Mate)
                 {
                     var exists = m_ActionsInterests.FindIndex(x => (BaseAIOrder.BaseActions)x.Action == BaseAIOrder.BaseActions.Mate);
                     if (exists < 0)
-                        m_ActionsNeeds.Add(new BaseAIOrder(BaseAIOrder.BaseActions.Mate, 1f));
+                    {
+                        if (IsMale)
+                            m_MatingState = RabbitMatingState.MaleLooking;
+                        else
+                            m_MatingState = RabbitMatingState.FemaleLooking;
+                        m_ActionsInterests.Add(new BaseAIOrder(BaseAIOrder.BaseActions.Mate, 1f));
+                    }
                 }
             }
             else

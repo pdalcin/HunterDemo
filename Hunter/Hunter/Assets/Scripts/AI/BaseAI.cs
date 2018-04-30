@@ -11,6 +11,13 @@ namespace Hunter.AI
         [SerializeField]
         protected BaseAIPersonality m_Personality;
 
+        public BaseAIPersonality Personality
+        {
+            get
+            {
+                return m_Personality;
+            }
+        }
         /// <summary>
         /// Actions
         /// </summary>
@@ -93,6 +100,7 @@ namespace Hunter.AI
             if (m_ActionsNeeds.Count > 0)
             {
                 m_ActionCurrent = m_ActionsNeeds[0];
+                m_ActionsNeeds.Remove(m_ActionCurrent);
                 m_ActionDelegates[m_ActionCurrent.Action]();
                 return true;
             }
@@ -104,6 +112,7 @@ namespace Hunter.AI
             if (m_ActionsInterests.Count > 0)
             {
                 m_ActionCurrent = m_ActionsInterests[0];
+                m_ActionsInterests.Remove(m_ActionCurrent);
                 m_ActionDelegates[m_ActionCurrent.Action]();
                 return true;
             }
@@ -240,6 +249,8 @@ namespace Hunter.AI
             HungerDecay();
             if (m_Hunger <= 0f)
                 HealthDecay();
+            if (m_Hunger >= 1f)
+                m_Health = 1f;
             CheckHealth();
             if(!m_CurrentTarget || IsDoingSomething())
             {
@@ -292,11 +303,17 @@ namespace Hunter.AI
         #endregion
 
         #region Util
+
+        public virtual void SetParents(BaseAIPersonality parent1, BaseAIPersonality parent2)
+        {
+            m_Personality = BaseAIPersonality.Child(parent1, parent2);
+        }
+
         protected virtual bool WanderRandomDirection(float range)
         {
             for (int i = 0; i < 30; i++)
             {
-                Vector3 randomPoint = transform.position + Random.insideUnitSphere * range;
+                Vector3 randomPoint = transform.position + Random.insideUnitSphere.normalized * Random.Range(range/2f,range);
                 NavMeshHit hit;
                 if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
                 {

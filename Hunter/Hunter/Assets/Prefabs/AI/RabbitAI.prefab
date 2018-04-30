@@ -1722,9 +1722,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Personality:
     HungryThreshold: 0.45
-    HungryThresholdRange: {x: 0.3, y: 0.45}
+    HungryThresholdRange: {x: 0.2, y: 0.35}
     HungerDecayRatio: 0.2
-    HungryDecayRange: {x: 0.07, y: 0.1}
+    HungryDecayRange: {x: 0.02, y: 0.04}
     NeedDetection: 5
     NeedDetectionRange: {x: 6, y: 9}
     DecayHealthWhenStarving: 1

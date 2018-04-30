@@ -87,7 +87,7 @@ namespace Hunter.Objects
 
             for(int i = 0; i < m_FruitSpawnPoints.Count; i++)
             {
-                if(Physics.OverlapSphereNonAlloc(m_FruitSpawnPoints[index].position, .3f, null, m_FruitPrefab.layer) <= 0)
+                if(Physics.OverlapSphereNonAlloc(m_FruitSpawnPoints[index].position, .3f, null, 1 << m_FruitPrefab.layer) <= 0)
                 {
                     return m_FruitSpawnPoints[index];
                 }
